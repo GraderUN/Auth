@@ -15,7 +15,7 @@ RUN python django_ec2_project/manage.py migrate
 
 COPY . .
 
-CMD [ "python", "django_ec2_project/manage.py", "runserver", "0.0.0.0:8000" ]
+CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
 
 
 
