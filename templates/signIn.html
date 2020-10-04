@@ -1,0 +1,21 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign</title>
+</head>
+<body>
+<form action="/welcome/" method="post">
+    {% csrf_token %}
+    ingresa tu correo :
+    <input type="email" name="email">
+    ingresa tu contraseña:
+    <input type="password" name="pass">
+    <input type="submit" value="SignIn">
+</form>
+
+<ul>
+    <li><a href="{% url 'social:begin' 'facebook' %}"> Sign in with facebook</a></li>
+</ul>
+</body>
+</html>

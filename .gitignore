@@ -1,0 +1,17 @@
+### Firebase ###
+main/Keys/authgraderun-firebase-adminsdk.json
+
+### Social Keys ###
+*/SocialKeys.py
+main/Keys/firebase.py
+
+### IntelliJ IDEA ###
+.idea
+*.
+
+### PyCharm ###
+db.sqlite3
+__pycache__
+*/__pycache__
+venv
+*/migrations
