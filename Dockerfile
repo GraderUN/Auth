@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN pip install djangorestframework
+RUN pip install django-oauth-toolkit djangorestframework
 
 RUN python manage.py makemigrations
 
