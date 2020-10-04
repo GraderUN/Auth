@@ -6,7 +6,7 @@ WORKDIR /djangoProject
 
 ADD djangoProject /djangoProject
 
-COPY requirements.txt /requirements.txt
+COPY djangoProject/requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
