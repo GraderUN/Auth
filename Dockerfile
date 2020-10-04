@@ -3,15 +3,15 @@ FROM python:3
 EXPOSE 8000
 ENV PYTHONUNBUFFERED 1
 
-ADD djangoProject /djangoProject
+RUN mkdir /code
 
-WORKDIR /djangoProject
+WORKDIR /code
 
-COPY djangoProject/requirements.txt requirements.txt
+COPY requirements.txt /code/
 
 RUN pip install -r requirements.txt
 
-COPY djangoProject /djangoProject
+COPY . /code/
 
 
 
