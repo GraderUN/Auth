@@ -8,9 +8,9 @@ ADD djangoProject /djangoProject
 
 COPY requirements.txt /app/requirements.txt
 
-RUN python djangoProject/manage.py makemigrations
+RUN python manage.py makemigrations
 
-RUN python djangoProject/manage.py migrate
+RUN python manage.py migrate
 
 RUN pip install -r requirements.txt
 
