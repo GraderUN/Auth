@@ -9,9 +9,9 @@ COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-RUN python django_ec2_project/manage.py makemigrations
+RUN python manage.py makemigrations
 
-RUN python django_ec2_project/manage.py migrate
+RUN python manage.py migrate
 
 COPY . .
 
