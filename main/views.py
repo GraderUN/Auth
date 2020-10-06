@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework.parsers import JSONParser
@@ -7,7 +6,6 @@ from .serializers import UserSerializer, TokenSerializer
 import firebase_admin
 from firebase_admin import auth
 from firebase_admin import credentials
-from pyrebase import pyrebase
 
 cred = credentials.Certificate("main/Keys/authgraderun-firebase-adminsdk.json")
 firebase_admin.initialize_app(cred)
@@ -15,6 +13,7 @@ firebase_admin.initialize_app(cred)
 
 @csrf_exempt
 def register(request):
+    print("body", request)
     data = JSONParser().parse(request)
     serialized = UserSerializer(data=data)
     if serialized.is_valid():
@@ -33,32 +32,32 @@ def register(request):
 
 
 def authRequest(request):
-    data = JSONParser().parse(request)
-    serialized = TokenSerializer(data=data)
-    if serialized.is_valid():
-        try:
-            token = serialized.data.get('authToken')
-            print(auth.verify_id_token(token))
-            return HttpResponse('True')
-        except:
-            return HttpResponse('False')
+    try:
+        token = request.headers.get('Authorization')
+        print(auth.verify_id_token(token))
+        return HttpResponse('True')
+    except:
+        return HttpResponse('False')
 
-
+@csrf_exempt
 def updateEmail(request):
     data = JSONParser().parse(request)
-    try:
-        auth.update_user(data.get('userId'),
-                         email='saduquebe@unal.edu.er')
-        return HttpResponse('Exito')
-    except:
-        return HttpResponse('No se pudo actualizar')
+    if request.method == 'PATCH':
+        try:
+            auth.update_user(data.get('userId'),
+                             email=data.get('email'))
+            return HttpResponse(True)
+        except:
+            return HttpResponse(False)
 
 
+@csrf_exempt
 def deleteUser(request):
+    print("body", request)
     data = JSONParser().parse(request)
-    try:
-        auth.delete_user(data.get('userId'))
-        return HttpResponse('Exito')
-    except:
-        message = "No se pudo eliminar"
-        return HttpResponse(message)
+    if request.method == 'DELETE':
+        try:
+            auth.delete_user(data.get('userId'))
+            return HttpResponse(True)
+        except:
+            return HttpResponse(False)
