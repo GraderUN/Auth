@@ -8,7 +8,7 @@ main/Keys/firebase.py
 ### IntelliJ IDEA ###
 .idea
 *.
-
+.vscode
 ### PyCharm ###
 db.sqlite3
 __pycache__

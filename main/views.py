@@ -6,7 +6,7 @@ from .serializers import UserSerializer, TokenSerializer
 import firebase_admin
 from firebase_admin import auth
 from firebase_admin import credentials
-
+import json
 cred = credentials.Certificate("main/Keys/authgraderun-firebase-adminsdk.json")
 firebase_admin.initialize_app(cred)
 
@@ -22,7 +22,10 @@ def register(request):
                 email=serialized.data.get('email'),
                 password=serialized.data.get('password')
             )
-            print(user.email)
+            custom_claims = {
+                "role": serialized.data.get('role')
+            }
+            auth.set_custom_user_claims(user.uid, custom_claims)
             message = 'Sucessfully created new user: '
             message += user.email
             return HttpResponse(message, "Registrado exitosamente")
